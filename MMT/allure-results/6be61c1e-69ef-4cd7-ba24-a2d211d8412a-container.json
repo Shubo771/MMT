@@ -1,0 +1,1 @@
+{"uuid":"6be61c1e-69ef-4cd7-ba24-a2d211d8412a","name":"test.makeMyTriptest.tearDown","children":["437e89f6-4c7f-46b3-818f-89d544f575a7"],"description":"","befores":[],"afters":[{"name":"tearDown","status":"passed","stage":"finished","description":"","steps":[],"attachments":[],"parameters":[],"start":1768980379686,"stop":1768980379960}],"start":1768980379686,"stop":1768980379960}

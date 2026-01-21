@@ -1,0 +1,1 @@
+{"uuid":"72d73ba7-9c32-450e-8a10-d86abcbcefef","name":"test.makeMyTriptest.setup","children":["19a6cd32-8d03-4c59-8614-b4470cfec586"],"description":"","befores":[{"name":"setup","status":"passed","stage":"finished","description":"","steps":[],"attachments":[],"parameters":[],"start":1768985104267,"stop":1768985106945}],"afters":[],"start":1768985104266,"stop":1768985106945}

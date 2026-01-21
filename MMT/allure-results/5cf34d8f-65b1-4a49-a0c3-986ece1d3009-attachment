@@ -1,0 +1,9 @@
+org.openqa.selenium.ElementClickInterceptedException: element click intercepted: Element <li data-cy="roundTrip" class="">...</li> is not clickable at point (224, 210). Other element would receive the click: <img alt="" height="540px" width="386px" src="https://promos.makemytrip.com/notification/xhdpi/Roadblock-386x540-TTBL-12Jan.jpg">
+  (Session info: chrome=143.0.7499.193)
+Build info: version: '4.33.0', revision: '2c6aaad03a'
+System info: os.name: 'Windows 11', os.arch: 'amd64', os.version: '10.0', java.version: '17.0.7'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Command: [9a5e874e55327cc19a02971065a42103, clickElement {id=f.BBAA6691F23DAC7144A70349206543EC.d.5FB7B8A3C7E450247A9B49D941A9DBF4.e.79}]
+Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 143.0.7499.193, chrome: {chromedriverVersion: 143.0.7499.192 (be2c1f4fd45..., userDataDir: C:\Users\shubh\AppData\Loca...}, fedcm:accounts: true, goog:chromeOptions: {debuggerAddress: localhost:64579}, goog:processID: 18684, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: windows, proxy: Proxy(), se:cdp: ws://localhost:64579/devtoo..., se:cdpVersion: 143.0.7499.193, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:extension:minPinLength: true, webauthn:extension:prf: true, webauthn:virtualAuthenticators: true}
+Element: [[ChromeDriver: chrome on windows (9a5e874e55327cc19a02971065a42103)] -> xpath: //li[@data-cy='roundTrip']]
+Session ID: 9a5e874e55327cc19a02971065a42103
