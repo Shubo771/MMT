@@ -100,61 +100,78 @@ public class makeMyTrip {
 	    
 	    public void selectDates2026LowestPricePlus3() {
 
-	        JavascriptExecutor js = (JavascriptExecutor) driver;
-	        Actions actions = new Actions(driver);
+	while (!calendarHeader.getText().contains("2026")) {
+                wait.until(ExpectedConditions.elementToBeClickable(nextMonth)).click();
+                wait.until(ExpectedConditions.visibilityOf(calendarHeader));
+               }
 
-	        // Ensure calendar is open and focused
-	        wait.until(ExpectedConditions.visibilityOf(calendarHeader));
+                int lowestPrice = Integer.MAX_VALUE;
+                WebElement lowestPriceDate = null;
 
-	        // 🔹 Force interaction so MakeMyTrip loads prices
-	        js.executeScript("arguments[0].scrollIntoView(true);", calendarHeader);
-	        actions.moveToElement(calendarHeader).pause(Duration.ofMillis(500)).perform();
+                List<WebElement> dates = wait.until(
+                ExpectedConditions.visibilityOfAllElements(enabledDates)
+                );
 
-	        // ---------- Move calendar to 2026 ----------
-	        while (!calendarHeader.getText().contains("2026")) {
-	            js.executeScript("arguments[0].click();", nextMonth);
-	            wait.until(ExpectedConditions.visibilityOf(calendarHeader));
+               for (WebElement date : dates) {
+               try {
+                WebElement priceElement = date.findElement(
+                        By.xpath(".//p[contains(@class,'price') or contains(@class,'todayPrice')]")
+                );
 
-	            // Important: trigger lazy load
-	            actions.moveToElement(calendarHeader).pause(Duration.ofMillis(300)).perform();
-	        }
+                String priceText = priceElement.getText()
+                        .replace("₹", "")
+                        .replace(",", "")
+                        .trim();
 
-	        int lowestPrice = Integer.MAX_VALUE;
-	        WebElement lowestPriceDate = null;
+                if (!priceText.isEmpty()) {
+                    int price = Integer.parseInt(priceText);
 
-	        // Wait for dates & prices to load
-	        List<WebElement> dates = wait.until(
-	                ExpectedConditions.visibilityOfAllElements(enabledDates)
-	        );
+                    if (price < lowestPrice) {
+                        lowestPrice = price;
+                        lowestPriceDate = date;
+                    }
+                }
 
-	        for (WebElement date : dates) {
-	            try {
-	                WebElement priceElement = date.findElement(By.xpath(".//following-sibling::div[contains(@class,'price')]"));
-	                String priceText = priceElement.getText().replace("₹", "").replace(",", "").trim();
+            } catch (NoSuchElementException e) {
+                // Ignore dates without price
+            }
+           }
 
-	                if (!priceText.isEmpty()) {
-	                    int price = Integer.parseInt(priceText);
+              if (lowestPriceDate == null) {
+              throw new RuntimeException("No priced date found in calendar for 2026");
+            }
 
-	                    if (price < lowestPrice) {
-	                        lowestPrice = price;
-	                        lowestPriceDate = date;
-	                    }
-	                }
+        //  IMPORTANT: Scroll inside calendar before click
+             ((JavascriptExecutor) driver).executeScript(
+                "arguments[0].scrollIntoView({block:'center'});",
+                lowestPriceDate
+           );
 
-	            } catch (NoSuchElementException e) {
-	                // Ignore dates without price
-	            }
-	        }
+             wait.until(ExpectedConditions.elementToBeClickable(lowestPriceDate)).click();
 
-	        if (lowestPriceDate == null) {
-	            throw new RuntimeException("No priced date found in 2026 calendar");
-	        }
+        // Re-fetch dates AFTER selecting departure
+               List<WebElement> updatedDates = wait.until(
+                ExpectedConditions.visibilityOfAllElements(enabledDates)
+             );
 
-	        // 🔹 Scroll date into view before clicking
-	        js.executeScript("arguments[0].scrollIntoView({block:'center'});", lowestPriceDate);
-	        actions.moveToElement(lowestPriceDate).pause(Duration.ofMillis(300)).click().perform();
-	    }
+        int departIndex = updatedDates.indexOf(lowestPriceDate);
 
+        if (departIndex + 3 < updatedDates.size()) {
+
+            WebElement returnDate = updatedDates.get(departIndex + 3);
+
+            // Scroll return date too
+            ((JavascriptExecutor) driver).executeScript(
+                    "arguments[0].scrollIntoView({block:'center'});",
+                    returnDate
+            );
+
+            wait.until(ExpectedConditions.elementToBeClickable(returnDate)).click();
+
+        } else {
+            throw new RuntimeException("Return date not available");
+        }
+        }
 
 
 	       
