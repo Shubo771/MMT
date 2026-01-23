@@ -40,21 +40,21 @@ public class makeMyTriptest {
     @Severity(SeverityLevel.CRITICAL)
     public void smoketest() throws InterruptedException {
 
-        makeMyTrip flight = new makeMyTrip(driver);
+        makeMyTrip flight1 = new makeMyTrip(driver);
 
-        flight.clickAnywhereActions();
+        flight1.clickAnywhereActions();
         AllureUtils.attachScreenshot(driver, "Popup closed");
 
-        flight.selectRoundTrip();
+        flight1.selectRoundTrip();
         AllureUtils.attachScreenshot(driver, "Round trip selected");
 
-        flight.selectFromCityKolkata();
+        flight1.selectFromCityKolkata();
         AllureUtils.attachScreenshot(driver, "From city selected");
 
-        flight.selectToCityDelhi();
+        flight1.selectToCityDelhi();
         AllureUtils.attachScreenshot(driver, "To city selected");
 
-        flight.clickSearch();
+        flight1.clickSearch();
         AllureUtils.attachScreenshot(driver, "Search clicked");
     }
     
